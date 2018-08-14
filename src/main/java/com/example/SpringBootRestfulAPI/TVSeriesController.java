@@ -17,6 +17,8 @@ public class TVSeriesController {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016,Calendar.OCTOBER,2,0,0);
         list.add(new TVSeriesDto(1,"WestWorld",1,calendar.getTime()));
+        calendar.set(2008,Calendar.OCTOBER,3,0,0);
+        list.add(new TVSeriesDto(2,"The Big Bang Theory",11,calendar.getTime()));
         return list;
     }
 }
