@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@RestController//返回Json
 @RequestMapping("/tvseries")
 public class TVSeriesController {
 
