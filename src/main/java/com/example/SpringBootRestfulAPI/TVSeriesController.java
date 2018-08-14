@@ -5,17 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController//返回Json
 @RequestMapping("/tvseries")
 public class TVSeriesController {
 
     @GetMapping
-    public Map<String,Object> sayHello(){
-        Map<String,Object> result = new HashMap<>();
-        result.put("message","hello,world!!");
-        return result;
+    public List<TVSeriesDto> sayHello(){
+        List<TVSeriesDto> list = new ArrayList<>();
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016,Calendar.OCTOBER,2,0,0);
+        list.add(new TVSeriesDto(1,"WestWorld",1,calendar.getTime()));
+        return list;
     }
 }

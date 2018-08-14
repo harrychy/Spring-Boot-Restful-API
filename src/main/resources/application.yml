@@ -1,0 +1,6 @@
+spring:
+  jackson:
+    data-format: yyyy-MM-dd
+    timezone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false #使用数值timestamp表示日期

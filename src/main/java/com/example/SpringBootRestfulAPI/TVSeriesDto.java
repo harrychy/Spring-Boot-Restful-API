@@ -8,6 +8,16 @@ public class TVSeriesDto {
     private int seasonCount;
     private Date originRelease;
 
+    public TVSeriesDto(){
+    }
+
+    public TVSeriesDto(int id, String name, int seasonCount, Date originRelease){
+        this.id = id;
+        this.name = name;
+        this.originRelease = originRelease;
+        this.seasonCount = seasonCount;
+    }
+
     public int getId() {
         return id;
     }
