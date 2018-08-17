@@ -31,13 +31,7 @@ public class TVSeriesController {
         if(log.isTraceEnabled()){//日志
             log.trace("getOne: " + id);
         }
-        if (id == 101){
-            return createBigBang();
-        }else if (id == 102){
-            return createWestWorld();
-        }else {
-            throw new ResourceNotFoundException();
-        }
+        return getTvSeriesDto(id);
     }
 
     @PostMapping
@@ -47,6 +41,24 @@ public class TVSeriesController {
         }
         tvSeriesDto.setId(999);
         return tvSeriesDto;
+    }
+
+    @PutMapping("/{id}")//没有数据库 部分功能没有实现
+    public TVSeriesDto updateOne(@PathVariable int id ,@RequestBody TVSeriesDto tvSeriesDto){
+        if (log.isTraceEnabled()){
+            log.trace("updateOne: "+ id);
+        }
+        return getTvSeriesDto(id);
+    }
+
+    private TVSeriesDto getTvSeriesDto(@PathVariable int id) {
+        if (id == 101){
+            return createBigBang();
+        }else if (id == 102){
+            return createWestWorld();
+        }else {
+            throw new ResourceNotFoundException();
+        }
     }
 
     private TVSeriesDto createBigBang(){
