@@ -3,10 +3,7 @@ package com.example.SpringBootRestfulAPI;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.*;
@@ -41,6 +38,15 @@ public class TVSeriesController {
         }else {
             throw new ResourceNotFoundException();
         }
+    }
+
+    @PostMapping
+    public  TVSeriesDto insterOne(@RequestBody TVSeriesDto tvSeriesDto){
+        if (log.isTraceEnabled()){
+            log.trace("传递进来的参数是" + tvSeriesDto);
+        }
+        tvSeriesDto.setId(999);
+        return tvSeriesDto;
     }
 
     private TVSeriesDto createBigBang(){

@@ -49,4 +49,9 @@ public class TVSeriesDto {
     public void setOriginRelease(Date originRelease) {
         this.originRelease = originRelease;
     }
+
+    @Override//覆盖的意思 覆盖原本同名的方法
+    public String toString(){
+        return this.getClass().getName() +"{id=" + id +";name=" +name+"}";
+    }
 }
