@@ -1,9 +1,14 @@
 package com.example.SpringBootRestfulAPI;
 
-
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.ResourceAccessException;
+
 
 import java.util.*;
 
@@ -11,14 +16,43 @@ import java.util.*;
 @RequestMapping("/tvseries")
 public class TVSeriesController {
 
+    private static final Log log = (Log) LogFactory.getLog(TVSeriesController.class);
+
     @GetMapping
-    public List<TVSeriesDto> sayHello(){
+    public List<TVSeriesDto> getAll(){
+        if (log.isTraceEnabled()){
+            log.trace("getAll();被调用了");
+        }
         List<TVSeriesDto> list = new ArrayList<>();
+        list.add(createWestWorld());
+        list.add(createBigBang());
+        return list;
+
+    }
+
+    @GetMapping("/{id}")
+    private TVSeriesDto getOne(@PathVariable int id){
+        if(log.isTraceEnabled()){
+            log.trace("getOne: " + id);
+        }
+        if (id == 101){
+            return createBigBang();
+        }else if (id == 102){
+            return createWestWorld();
+        }else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    private TVSeriesDto createBigBang(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2008,Calendar.OCTOBER,3,0,0);
+        return new TVSeriesDto(2,"The Big Bang Theory",11,calendar.getTime());
+    }
+
+    private TVSeriesDto createWestWorld(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016,Calendar.OCTOBER,2,0,0);
-        list.add(new TVSeriesDto(1,"WestWorld",1,calendar.getTime()));
-        calendar.set(2008,Calendar.OCTOBER,3,0,0);
-        list.add(new TVSeriesDto(2,"The Big Bang Theory",11,calendar.getTime()));
-        return list;
+        return new TVSeriesDto(1,"WestWorld",1,calendar.getTime());
     }
 }
