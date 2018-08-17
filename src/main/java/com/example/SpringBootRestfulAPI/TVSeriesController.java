@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.ResourceAccessException;
 
 
 import java.util.*;
@@ -31,8 +30,8 @@ public class TVSeriesController {
     }
 
     @GetMapping("/{id}")
-    private TVSeriesDto getOne(@PathVariable int id){
-        if(log.isTraceEnabled()){
+    private TVSeriesDto getOne(@PathVariable int id){//这个参数的值会从@PathVariable中取
+        if(log.isTraceEnabled()){//日志
             log.trace("getOne: " + id);
         }
         if (id == 101){
@@ -47,12 +46,12 @@ public class TVSeriesController {
     private TVSeriesDto createBigBang(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(2008,Calendar.OCTOBER,3,0,0);
-        return new TVSeriesDto(2,"The Big Bang Theory",11,calendar.getTime());
+        return new TVSeriesDto(101,"The Big Bang Theory",11,calendar.getTime());
     }
 
     private TVSeriesDto createWestWorld(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016,Calendar.OCTOBER,2,0,0);
-        return new TVSeriesDto(1,"WestWorld",1,calendar.getTime());
+        return new TVSeriesDto(102,"WestWorld",1,calendar.getTime());
     }
 }
