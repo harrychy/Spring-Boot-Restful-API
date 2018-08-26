@@ -67,7 +67,7 @@ public class TVSeriesController {
         }
         Map<String,String> result = new HashMap<>();
         if(id == 101){
-            result.put("message","#101被" + request.getRemoteAddr() + "删除（原因" +deleteReason+"）");
+            result.put("message","#101被" + request.getRemoteAddr()+ "删除（原因" +deleteReason+"）");
         }else if(id ==102){
             throw new RuntimeException("#102不能删除");
         }else {
@@ -77,6 +77,7 @@ public class TVSeriesController {
     }
 
     //上传图片
+    //可以直接使用MultipartFile中的流来保存文件
     @PostMapping(value = "/{id}/photos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)//指定请求数据的格式，文件上传MULTIPART_FORM_DATA_VALUE这种格式
     public void addPhoto(@PathVariable int id , @RequestParam("photo") MultipartFile imgFile) throws Exception{
         if (log.isTraceEnabled()){
@@ -96,6 +97,7 @@ public class TVSeriesController {
         }
         String xg = "target/xg.png";
         InputStream is = new FileInputStream(xg);
+        //FileInputStream是Java语言中抽象类InputStream用来具体实现类的创建对象。FileInputStream可以从文件系统中的某个文件中获得输入字节
         return org.apache.commons.io.IOUtils.toByteArray(is);//将流转为数组对象
     }
 
