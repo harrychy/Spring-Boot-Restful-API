@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @RestController//返回Json
-@RequestMapping("/tvseries")//设定入口
+@RequestMapping("/tvseries")
 public class TVSeriesController {
 
-    private static final Log log = (Log) LogFactory.getLog(TVSeriesController.class);//引入日志
+    private static final Log log = (Log) LogFactory.getLog(TVSeriesController.class);
 
     @GetMapping
     public List<TVSeriesDto> getAll(){
         if (log.isTraceEnabled()){
-            log.trace("getAll();被调用了");//输出日志
+            log.trace("getAll();被调用了");
         }
         List<TVSeriesDto> list = new ArrayList<>();
         list.add(createWestWorld());
@@ -36,7 +36,7 @@ public class TVSeriesController {
     }
 
     @PostMapping
-    public  TVSeriesDto insterOne(@RequestBody TVSeriesDto tvSeriesDto){//用postman在body处写入TVSeriesDto对象
+    public  TVSeriesDto insterOne(@RequestBody TVSeriesDto tvSeriesDto){
         if (log.isTraceEnabled()){
             log.trace("传递进来的参数是" + tvSeriesDto);
         }
@@ -54,7 +54,7 @@ public class TVSeriesController {
 
     @DeleteMapping("/{id}")
     public Map<String,String> deleteOne(@PathVariable int id, HttpServletRequest request,
-                                        @RequestParam(value = "delete_reason",required = false)String deleteReason)throws Exception{//@RequestParam读取？后delete_reason的值
+                                        @RequestParam(value = "delete_reason",required = false)String deleteReason)throws Exception{
         if(log.isTraceEnabled()){
             log.trace("deleteOne" + id);
         }
@@ -68,29 +68,6 @@ public class TVSeriesController {
         }
         return result;
     }
-
-    /*@PostMapping(value = "/{id}/photos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)//指定请求数据的格式，文件上传MULTIPART_FORM_DATA_VALUE这种格式
-    public void addPhoto(@PathVariable int id , @RequestParam("photo")MultipartFile imgFile) throws Exception{
-        if (log.isTraceEnabled()){
-            log.trace("接收到文件" +id+ "收到文件： " + imgFile.getOriginalFilename());
-        }
-        //保存图片
-        FileOutputStream fos = new FileOutputStream("target/"+ imgFile.getOriginalFilename());
-        IOUtils.copy(imgFile.getInputStream(),fos);
-        fos.close();
-    }
-
-    @GetMapping(value = "/{id}/xg", produces = MediaType.IMAGE_JPEG_VALUE)
-    public byte[] getIcon(@PathVariable int id) throws Exception{
-        if(log.isTraceEnabled()){
-            log.trace("getIcon("+id+")");
-        }
-        String xg = "target/xg.png";
-        InputStream is = new FileInputStream(xg);
-        return IOUtils.toByteArray(is);
-    }*/
-
-
 
     private TVSeriesDto getTvSeriesDto(@PathVariable int id) {
         if (id == 101){
