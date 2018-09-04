@@ -1,8 +1,11 @@
-package com.example.SpringBootRestfulAPI;
+package com.example.SpringBootRestfulAPI.controller;
 
+import com.example.SpringBootRestfulAPI.Service.TVSeriesService;
+import com.example.SpringBootRestfulAPI.POJO.TVSeries;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -21,20 +24,24 @@ public class TVSeriesController {
 
     private static final Log log = (Log) LogFactory.getLog(TVSeriesController.class);//日志
 
+    @Autowired TVSeriesService tvSeriesService;
+
     @GetMapping
-    public List<TVSeriesDto> getAll(){
+    public List<TVSeries> getAll(){
         if (log.isTraceEnabled()){
             log.trace("getAll();被调用了");
         }
-        List<TVSeriesDto> list = new ArrayList<>();
-        list.add(createWestWorld());
-        list.add(createBigBang());
+        List<TVSeries> list = tvSeriesService.getAllSeries();
+        if (log.isTraceEnabled()){
+            log.trace("查询获取"+list.size()+"条记录");
+        }
+
         return list;
 
     }
 
     @GetMapping("/{id}")
-    private TVSeriesDto getOne(@PathVariable int id){//这个参数的值会从@PathVariable中取
+    private TVSeries getOne(@PathVariable int id){//这个参数的值会从@PathVariable中取
         if(log.isTraceEnabled()){//日志
             log.trace("getOne: " + id);
         }
@@ -42,7 +49,7 @@ public class TVSeriesController {
     }
 
     @PostMapping
-    public  TVSeriesDto insterOne(@RequestBody TVSeriesDto tvSeriesDto){//在Postman中的body处传入TVSeriesDto类的对象
+    public TVSeries insterOne(@RequestBody TVSeries tvSeriesDto){//在Postman中的body处传入TVSeriesDto类的对象
         if (log.isTraceEnabled()){
             log.trace("传递进来的参数是" + tvSeriesDto);//日志输出
         }
@@ -51,7 +58,7 @@ public class TVSeriesController {
     }
 
     @PutMapping("/{id}")//没有数据库 部分功能没有实现
-    public TVSeriesDto updateOne(@PathVariable int id ,@RequestBody TVSeriesDto tvSeriesDto){//在Postman中的body处传入TVSeriesDto类的对象
+    public TVSeries updateOne(@PathVariable int id , @RequestBody TVSeries tvSeriesDto){//在Postman中的body处传入TVSeriesDto类的对象
         if (log.isTraceEnabled()){
             log.trace("updateOne: "+ id);
         }
@@ -101,7 +108,7 @@ public class TVSeriesController {
         return org.apache.commons.io.IOUtils.toByteArray(is);//将流转为数组对象
     }
 
-    private TVSeriesDto getTvSeriesDto(@PathVariable int id) {
+    private TVSeries getTvSeriesDto(@PathVariable int id) {
         if (id == 101){
             return createBigBang();
         }else if (id == 102){
@@ -111,15 +118,15 @@ public class TVSeriesController {
         }
     }
 
-    private TVSeriesDto createBigBang(){
+    private TVSeries createBigBang(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(2008,Calendar.OCTOBER,3,0,0);
-        return new TVSeriesDto(101,"The Big Bang Theory",11,calendar.getTime());
+        return new TVSeries(101,"The Big Bang Theory",11,calendar.getTime());
     }
 
-    private TVSeriesDto createWestWorld(){
+    private TVSeries createWestWorld(){
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016,Calendar.OCTOBER,2,0,0);
-        return new TVSeriesDto(102,"WestWorld",1,calendar.getTime());
+        return new TVSeries(102,"WestWorld",1,calendar.getTime());
     }
 }

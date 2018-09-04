@@ -1,17 +1,17 @@
-package com.example.SpringBootRestfulAPI;
+package com.example.SpringBootRestfulAPI.POJO;
 
 import java.util.Date;
 
-public class TVSeriesDto {
+public class TVSeries {
     private int id;
     private String name;
     private int seasonCount;
     private Date originRelease;
 
-    public TVSeriesDto(){
+    public TVSeries(){
     }
 
-    public TVSeriesDto(int id, String name, int seasonCount, Date originRelease){
+    public TVSeries(int id, String name, int seasonCount, Date originRelease){
         this.id = id;
         this.name = name;
         this.originRelease = originRelease;
